@@ -1,4 +1,4 @@
-59bd8d13cccb6f08a4c3b56f199ef7e3 *DESCRIPTION
+bd0b0e6bf0895a1f79200fb70ba52a73 *DESCRIPTION
 d73bac4bc992b048922945bd192222b5 *NAMESPACE
 a025b98c25cb7761c0dbf3f421618a4d *R/MDSplot.R
 eae0c348160c0e1f5c5140169c7610be *R/classCenter.R
@@ -15,16 +15,18 @@ a1b5833bdd402b89a5e0e859d472fdee *R/parallelRandomForest.R
 aeb6b6722cd382522b7cda751c98dd09 *R/partialPlot.R
 ca3e6387fa32cd308e53d59070d9f9cb *R/predict.quantregForest.R
 2debbb18a8e607a06c73b80600ab269f *R/print.quantregForest.R
-8e3472c706fc6510b391b4ff53314735 *R/quantregForest.R
+c18fb4bd3d8ab95f3c44a03c03a421b9 *R/quantregForest.R
 4d163330cc40560f8241d7b781c15cca *R/rfImpute.R
 7e89d590d18f16c8abd89ac6c19384cf *R/rfcv.R
 901baf10af3254e9996b36dc0f6f39f9 *R/treesize.R
 e695b3cfc07facf54856bf366870e360 *R/tuneRF.R
 143dac20c44a22e3bd132cad4385e90e *R/varImpPlot.R
 18f94384910772d7babc8354b4ebae17 *R/varUsed.R
+105278ae21f7552911410ec65df43918 *R/zzz.R
 759e037a308b2522f61e1bcc65acc5f4 *man/predict.quantregForest.Rd
 899821136f3f4ebe32b64288dc361813 *man/quantregForest.Rd
 4990d359cb318eb43492af652de44ee1 *src/classTree.c
+f75258d077a6a41ccc694efd3ec4db59 *src/init.c
 f38d50f44eac749f91c20e0f4915d270 *src/regTree.c
 a9bf5c60da49bda9d3d725618c3cd851 *src/regrf.c
 533ef8ac5d7f0189b85582621d29dc3a *src/rf.c
