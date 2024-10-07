@@ -30,7 +30,7 @@ The argument only has an effect under Linux and Mac OSX and is without effect on
 }
 \references{N. Meinshausen (2006)
 "Quantile Regression Forests", Journal of Machine Learning Research 7, 983-999
-\url{http://jmlr.csail.mit.edu/papers/v7/}}
+\url{https://jmlr.csail.mit.edu/papers/v7/}}
 \author{ Nicolai Meinshausen, Christina Heinze }
 \seealso{
 \code{\link{predict.quantregForest}}

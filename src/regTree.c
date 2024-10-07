@@ -34,8 +34,8 @@ void regTree(double *x, double *y, int mdim, int nsample, int *lDaughter,
     int ndstart, ndend, ndendl, nodecnt, jstat, msplit;
     double d, ss, av, decsplit, ubest, sumnode;
 
-    nodestart = (int *) Calloc(nrnodes, int);
-    nodepop   = (int *) Calloc(nrnodes, int);
+    nodestart = (int *) R_Calloc(nrnodes, int);
+    nodepop   = (int *) R_Calloc(nrnodes, int);
 
     /* initialize some arrays for the tree */
     zeroInt(nodestatus, nrnodes);
@@ -43,7 +43,7 @@ void regTree(double *x, double *y, int mdim, int nsample, int *lDaughter,
     zeroInt(nodepop, nrnodes);
     zeroDouble(avnode, nrnodes);
 
-    jdex = (int *) Calloc(nsample, int);
+    jdex = (int *) R_Calloc(nsample, int);
     for (i = 1; i <= nsample; ++i) jdex[i-1] = i;
 
     ncur = 0;
@@ -158,9 +158,9 @@ void regTree(double *x, double *y, int mdim, int nsample, int *lDaughter,
             nodestatus[k] = NODE_TERMINAL;
         }
     }
-    Free(nodestart);
-    Free(jdex);
-    Free(nodepop);
+    R_Free(nodestart);
+    R_Free(jdex);
+    R_Free(nodepop);
 }
 
 /*--------------------------------------------------------------*/
@@ -173,12 +173,12 @@ void findBestSplit(double *x, int *jdex, double *y, int mdim, int nsample,
     double *xt, *ut, *v, *yl, sumcat[MAX_CAT], avcat[MAX_CAT], tavcat[MAX_CAT], ubestt;
     double crit, critmax, critvar, suml, sumr, d, critParent;
 
-    ut = (double *) Calloc(nsample, double);
-    xt = (double *) Calloc(nsample, double);
-    v  = (double *) Calloc(nsample, double);
-    yl = (double *) Calloc(nsample, double);
-    mind  = (int *) Calloc(mdim, int);
-    ncase = (int *) Calloc(nsample, int);
+    ut = (double *) R_Calloc(nsample, double);
+    xt = (double *) R_Calloc(nsample, double);
+    v  = (double *) R_Calloc(nsample, double);
+    yl = (double *) R_Calloc(nsample, double);
+    mind  = (int *) R_Calloc(mdim, int);
+    ncase = (int *) R_Calloc(nsample, int);
     zeroDouble(avcat, MAX_CAT);
     zeroDouble(tavcat, MAX_CAT);
 
@@ -296,12 +296,12 @@ void findBestSplit(double *x, int *jdex, double *y, int mdim, int nsample,
         }
     } else *jstat = 1;
 	
-    Free(ncase);
-    Free(mind);
-    Free(v);
-    Free(yl);
-    Free(xt);
-    Free(ut);
+    R_Free(ncase);
+    R_Free(mind);
+    R_Free(v);
+    R_Free(yl);
+    R_Free(xt);
+    R_Free(ut);
 }
 
 /*====================================================================*/
@@ -315,7 +315,7 @@ void predictRegTree(double *x, int nsample, int mdim,
 
     /* decode the categorical splits */
     if (maxcat > 1) {
-        cbestsplit = (int *) Calloc(maxcat * treeSize, int);
+        cbestsplit = (int *) R_Calloc(maxcat * treeSize, int);
         zeroInt(cbestsplit, maxcat * treeSize);
         for (i = 0; i < treeSize; ++i) {
             if (nodestatus[i] != NODE_TERMINAL && cat[splitVar[i] - 1] > 1) {
@@ -348,5 +348,5 @@ void predictRegTree(double *x, int nsample, int mdim,
 	ypred[i] = nodepred[k];
 	nodex[i] = k + 1;
     }
-    if (maxcat > 1) Free(cbestsplit);
+    if (maxcat > 1) R_Free(cbestsplit);
 }

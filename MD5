@@ -1,4 +1,4 @@
-e58f14b51769c8045f7598cb389b714f *DESCRIPTION
+e25605336cc0c002d7ec018749a83ea2 *DESCRIPTION
 d73bac4bc992b048922945bd192222b5 *NAMESPACE
 a025b98c25cb7761c0dbf3f421618a4d *R/MDSplot.R
 eae0c348160c0e1f5c5140169c7610be *R/classCenter.R
@@ -24,12 +24,12 @@ e695b3cfc07facf54856bf366870e360 *R/tuneRF.R
 18f94384910772d7babc8354b4ebae17 *R/varUsed.R
 105278ae21f7552911410ec65df43918 *R/zzz.R
 759e037a308b2522f61e1bcc65acc5f4 *man/predict.quantregForest.Rd
-899821136f3f4ebe32b64288dc361813 *man/quantregForest.Rd
-4990d359cb318eb43492af652de44ee1 *src/classTree.c
+2a68027553f660bd5dcd0a351e41a758 *man/quantregForest.Rd
+f6b493e55e80ab9d6335faa3907a71fd *src/classTree.c
 f75258d077a6a41ccc694efd3ec4db59 *src/init.c
-f38d50f44eac749f91c20e0f4915d270 *src/regTree.c
+1fda55629afcd729dde330f605402e4f *src/regTree.c
 a9bf5c60da49bda9d3d725618c3cd851 *src/regrf.c
 533ef8ac5d7f0189b85582621d29dc3a *src/rf.c
 6c59001282eeabfaf0893f585d90b3d8 *src/rf.h
 e8c1243d0b05d3e3f334f16da657fc25 *src/rfsub.f
-4f6c01122409ca981deaf7ed58011078 *src/rfutils.c
+cf3709c487e7cbe2647ad5a514598b3c *src/rfutils.c
