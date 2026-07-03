@@ -1,0 +1,34 @@
+Version 1.4-0 (2026-07-02)
+
+  o New maintainer: Nicolai Meinshausen <meinshausen@gmail.com>.
+
+  o Substantial speed improvements, all without changing results:
+    - predict() now computes quantiles with a single vectorized
+      sort per prediction matrix instead of calling quantile()
+      once per observation (predictions on new data are now
+      considerably faster; results are unchanged, type-7 quantiles
+      as before).
+    - Fitting with keep.inbag=TRUE previously used an O(n^2) loop
+      per tree to sample out-of-bag responses; this is now fully
+      vectorized. The overhead of keep.inbag=TRUE over a plain fit
+      is reduced by more than an order of magnitude for larger n.
+    - quantregForest() no longer computes the terminal-node matrix
+      of the training data twice when keep.inbag=TRUE.
+    - Out-of-bag predictions via predict() without newdata are much
+      faster.
+
+  o Removed a broken, unreachable duplicate definition of
+    quantregForest() in R/convert.R that masked the real function
+    during package collation.
+
+  o quantregForest is now a pure R package. The bundled copy of the
+    C/Fortran sources and R helper functions of the randomForest
+    package (used only for fitting with nthreads > 1) has been
+    removed; parallel fitting now calls randomForest() directly in
+    each fork and merges the forests with randomForest::combine().
+    This removes the compiler dependency, keeps the parallel code
+    path automatically in sync with upstream randomForest, and does
+    not change the fitted forests.
+
+  o RColorBrewer is no longer attached (it was needed only by the
+    removed copies of randomForest plotting helpers).

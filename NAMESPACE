@@ -1,12 +1,6 @@
-useDynLib(quantregForest)
-
 export(quantregForest)
 S3method(predict,quantregForest)
 S3method(print,quantregForest)
 
-import(stats,randomForest,RColorBrewer)
-
-importFrom("grDevices", "rainbow")
-importFrom("graphics", "axis", "barplot", "dotchart", "lines", "mtext",
-           "pairs", "par", "plot", "plot.default", "points")
-
+import(stats,randomForest)
+importFrom(parallel,mclapply)

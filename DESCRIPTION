@@ -1,16 +1,17 @@
 Package: quantregForest
 Type: Package
 Title: Quantile Regression Forests
-Version: 1.3-7.1
-Date: 2017-12-16
+Version: 1.4-0
+Date: 2026-07-02
 Authors@R: c(person(given = "Nicolai",
                     family = "Meinshausen",
-                    role = "aut"),
+                    role = c("aut", "cre"),
+                    email = "meinshausen@gmail.com"),
              person(given = "Loris",
                     family = "Michel",
-                    role = "cre",
+                    role = "aut",
                     email = "michel@stat.math.ethz.ch"))
-Depends: randomForest, RColorBrewer
+Depends: randomForest
 Imports: stats, parallel
 Suggests: gss, knitr, rmarkdown
 Description: Quantile Regression Forests is a tree-based ensemble
@@ -19,13 +20,11 @@ Description: Quantile Regression Forests is a tree-based ensemble
         variables of mixed classes can be handled. The package is
         dependent on the package 'randomForest', written by Andy Liaw.
 License: GPL
-NeedsCompilation: yes
-URL: https://github.com/lorismichel/quantregForest
-BugReports: https://github.com/lorismichel/quantregForest/issues
+NeedsCompilation: no
 RoxygenNote: 6.0.1
-Packaged: 2024-10-07 08:16:06 UTC; hornik
+Packaged: 2026-07-02 16:50:31 UTC; nicolai
+Author: Nicolai Meinshausen [aut, cre],
+  Loris Michel [aut]
+Maintainer: Nicolai Meinshausen <meinshausen@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-10-07 08:21:02 UTC
-Author: Nicolai Meinshausen [aut],
-  Loris Michel [cre]
-Maintainer: Loris Michel <michel@stat.math.ethz.ch>
+Date/Publication: 2026-07-03 02:50:02 UTC

@@ -47,10 +47,12 @@ function(x,y, nthreads = 1, keep.inbag=FALSE, ...){
   n <- nrow(x)
   valuesNodes  <- matrix(nrow=nnodes,ncol=ntree)
 
+  ## store one randomly chosen response value per terminal node and tree
   for (tree in 1:ntree){
-      shuffledNodes <- nodesX[rank(ind <- sample(1:n,n)),tree]
-      useNodes <- sort(unique(as.numeric(shuffledNodes)))
-      valuesNodes[useNodes,tree] <- y[ind[match(useNodes,shuffledNodes )]]
+      shuffled <- sample.int(n)
+      nodesTree <- nodesX[shuffled,tree]
+      keep <- !duplicated(nodesTree)
+      valuesNodes[nodesTree[keep],tree] <- y[shuffled[keep]]
   }
 
 
@@ -59,40 +61,39 @@ function(x,y, nthreads = 1, keep.inbag=FALSE, ...){
   qrf[["valuesNodes"]] <- valuesNodes
 
   if(keep.inbag){
-    
-    # create a prediction vector with same shape as predictOOBNodes
-    predictOOBNodes <- attr(predict(qrf,newdata=x,nodes=TRUE),"nodes")
-    rownames(predictOOBNodes) <- NULL
-    valuesPredict <- 0*predictOOBNodes
-    ntree <- ncol(valuesNodes)
-    valuesPredict[qrf$inbag >0] <- NA
 
+    valuesPredict <- matrix(NA_real_,nrow=n,ncol=ntree)
 
-    # for each tree and observation sample another observation of the same node
+    ## for each tree and out-of-bag observation, sample the response of
+    ## another observation falling into the same terminal node
     for (tree in 1:ntree){
 
-      is.oob <- qrf$inbag[,tree] == 0
-      n.oob <- sum(is.oob)
+      oobIdx <- which(qrf$inbag[,tree] == 0)
+      if(length(oobIdx)==0) next
 
-      if(n.oob!=0) {
-      	
-	  y.oob  <- sapply(which(is.oob),
-		    function(i) {
-			    cur.node <- nodesX[i, tree]
-			    
-			    y.sampled <- if (length(cur.y <- y[setdiff(which(nodesX[,tree] == cur.node)
-			                                               ,i)])!=0) {
-			                cur.y[sample(x = 1:length(cur.y), size = 1)]
-			                 } else {
-			              	   NA
-			    	           }			   
-			    return(y.sampled)
-		       })
-          valuesPredict[is.oob, tree] <- y.oob
+      nodesTree <- nodesX[,tree]
+      ord <- order(nodesTree)
+      cnt <- tabulate(nodesTree)
+      offset <- cumsum(cnt) - cnt
+
+      k <- cnt[nodesTree[oobIdx]]
+      pick <- rep(NA_integer_,length(oobIdx))
+
+      ## draw uniformly among all node members, redrawing the few
+      ## observations that sampled themselves
+      todo <- which(k > 1L)
+      while(length(todo) > 0L){
+        idx <- oobIdx[todo]
+        pos <- offset[nodesTree[idx]] + pmin.int(k[todo], 1L + floor(runif(length(todo)) * k[todo]))
+        cand <- ord[pos]
+        ok <- cand != idx
+        pick[todo[ok]] <- cand[ok]
+        todo <- todo[!ok]
       }
+      valuesPredict[oobIdx,tree] <- y[pick]
     }
 
-    minoob <- min( apply(!is.na(valuesPredict),1,sum))
+    minoob <- min( rowSums(!is.na(valuesPredict)))
     if(minoob<10) stop("need to increase number of trees for sufficiently many out-of-bag observations")
     valuesOOB <- t(apply( valuesPredict,1 , function(x) sample( x[!is.na(x)], minoob)))
     qrf[["valuesOOB"]] <- valuesOOB
